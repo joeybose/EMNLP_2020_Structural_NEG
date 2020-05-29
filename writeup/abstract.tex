@@ -1,0 +1,22 @@
+Contrastive estimation is the most predominantly used technique for learning low dimensional knowledge graph (KG) representations for eliminating the computational burdens associated with calculating the normalization constant in softmax prediction layers. Given that KGs only consist of facts benefiting from this approach necessitates the fabrication of negative samples. Therefore, a crucial aspect of training KG embeddings is the choice of negative sampling distribution, which balances computational complexity of intractable objectives with hard negatives. While, earlier methods either employ too simple distributions, i.e. uniform, or sophisticated adversarial distributions they do not explicitly incorporate known graph structure resulting in suboptimal negatives. In this paper, we propose Structure Aware Negative Sampling (SANS), a computationally cheap negative sampling strategy that utilizes the rich graph structure by selecting negative samples from a node's \emph{k-hop} neighbourhood. We also employ a dynamic sampling scheme which results in significantly harder negatives than uniform sampling, yet is computationally cheaper than state-of-the-art approaches while producing competitive results. 
+
+
+
+% Version 3 ----------------------------------------------------------------------------------
+
+\cut{
+Learning low dimensional representations for entities and relations in knowledge graphs (KGs) represents a scalable and effective method for inferring connectivity patterns and predicting missing links. Since KGs consist of only positive facts, negative samples (false relations) are required for contrastive estimation during training. Therefore, a crucial aspect of training KG embeddings is the choice of negative sampling (NEG) distribution, which balances computational complexity of intractable objectives with hard negatives. While, earlier methods either employ too simple distributions, i.e. uniform, or sophisticated adversarial distributions they do not explicitly incorporate known graph structure resulting in suboptimal negatives. In this paper, we propose Structure Aware Negative Sampling (SANS), a computationally cheap negative sampling strategy that utilizes the rich graph structure by selecting negative samples from a node's \emph{k-hop} neighbourhood. We also employ a dynamic sampling scheme which results in significantly harder negatives than uniform sampling, yet is computationally cheaper than state-of-the-art approaches while producing competitive results. 
+}
+
+% Version 2 ----------------------------------------------------------------------------------
+\cut{
+Learning low dimensional representations for entities and relations in knowledge graphs (KGs) represents a scalable and effective method for inferring connectivity patterns and predicting missing links. A crucial aspect of training KG embeddings is the choice of negative sampling (NEG) distribution, which balances computational complexity of intractable objectives with hard negatives. While, earlier methods either employ too simple distributions, i.e. uniform, or sophisticated adversarial distributions they do not explicitly incorporate known graph structure resulting in suboptimal negatives.
+In this paper, we propose Structure Aware Negative Sampling (SANS), a computationally cheap NEG strategy that utilizes the rich graph structure by selecting negative samples from a node's \emph{k-hop} neighbourhood. We also employ a dynamic sampling scheme which results in significantly harder negatives than uniform sampling, yet is computationally cheaper than state of the art approaches while producing competitive results. 
+}
+
+% Version 1 ----------------------------------------------------------------------------------
+\cut{
+Considering that KGs only consist of observed true facts, effective negative sampling (NEG) is an important aspect while training graph embedding models. Earlier methods for performing NEG assumed simple distributions, ---i.e. uniform, for negative triples during training, resulting in poor training of the KG embedding model due to easily-classified negative examples that provided little information alongside the positive examples. In this work, we select the negative triples from the node's \emph{k-hop} neighbourhood, and we propose a dynamic sampling scheme. With respect to our obtained results, our NEG technique performs better than uniform sampling, yet uses less computational resources compared to some of the state-of-the-art NEG algorithms.
+}
+
+

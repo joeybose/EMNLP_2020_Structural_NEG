@@ -1,0 +1,31 @@
+\section{Supplemental Material}
+\label{sec:supplemental}
+
+% % ------------------------------------------------------------------------
+% COMPLEXITY TABLE START
+
+\begin{table}[!htbp]
+    \centering
+    \begin{tabular}{cccc}
+    \hline
+         \multirow{2}{3cm}{\centering NEG Algorithm} & Preprocessing  & Runtime  & Space \\
+         & Complexity & Complexity & Complexity
+         \\
+         \hline
+         Uniform \cite{bordes2013translating} & $O(1)$ & $O(bn)$ & $O(1)$ \\
+         IGAN \cite{yu2014improving} & $O(t)$ & $O(bnt + bt)$ & $O(t)$ \\
+         KBGAN \cite{cai2017kbgan} & $O(t)$ & $O(bn + bd + bt)$ & $O(t)$ \\
+         NSCaching \cite{zhang2019nscaching} & $O(1)$ & $O(bn + be)$ & $O(c|R||V|)$ \\
+         Self-Adv. \cite{sun2019rotate} & $O(|E|)$ & $O(bn + bd)$ & $O(|E|)$ \\
+         Structural Uni. (ours) & $O(|V|^3\log k)$ & $O(bn)$ & $O(|V|^2)$ \\
+         Structural Adv. (ours) & $O(|V|^3\log k)$ & $O(bn + bd)$ & $O(|V|^2)$ \\
+         Structural RW Uni. (ours) & $O(rk|V|)$ & $O(bn)$ & $O(r|V|)$ \\
+         Structural RW Adv. (ours) & $O(rk|V|)$ & $O(bn + bd)$ & $O(r|V|)$ \\
+         \hline
+    \end{tabular}
+    \caption{Comparison of different negative sampling algorithms in terms of preprocessing, runtime, and space complexities given batch size $b$, negative sample size $n$, cache size $c$, cache extension size $e$, node set $V$, edge set $E$, relation set $R$, embedding dimension $d$, hops count $k$, random walks count $r$, and GAN parameters count $t$.}
+    \label{tab:times}
+\end{table}
+
+% COMPLEXITY TABLE END
+% % ------------------------------------------------------------------------

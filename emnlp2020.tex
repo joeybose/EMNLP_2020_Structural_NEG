@@ -1,0 +1,151 @@
+%
+% File emnlp2020.tex
+%
+%% Based on the style files for ACL 2020, which were
+%% Based on the style files for ACL 2018, NAACL 2018/19, which were
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{emnlp2020}
+\usepackage{times}
+\usepackage{latexsym}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% ---------------------------------------------------------
+% added by me
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{caption,subcaption}
+\usepackage{calrsfs}
+\usepackage{mathrsfs}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[symbol]{footmisc}
+%% New commands added
+\DeclareMathAlphabet{\pazocal}{OMS}{zplm}{m}{n}
+\newcommand{\La}{\mathcal{L}}   % curly
+\newcommand{\Lb}{\pazocal{L}}   % different
+\newcommand{\LD}{\mathfrak{D}}   
+% \usepackage{float}
+% \usepackage{placeins}
+%% New commands ended
+\usepackage{amsmath,amsfonts,bm}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+\newtheorem{proposition}{Proposition}
+  
+% Mark sections of captions for referring to divisions of figures
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\tildex}{\tilde{\mb{x}}}
+\newcommand{\figleft}{{\em (Left)}}
+\newcommand{\figcenter}{{\em (Center)}}
+\newcommand{\figright}{{\em (Right)}}
+\newcommand{\figtop}{{\em (Top)}}
+\newcommand{\figbottom}{{\em (Bottom)}}
+\newcommand{\captiona}{{\em (a)}}
+\newcommand{\captionb}{{\em (b)}}
+\newcommand{\captionc}{{\em (c)}}
+\newcommand{\captiond}{{\em (d)}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\V}{\mathcal{V}}
+% \newcommand{\E}{\mathcal{E}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+% Highlight a newly defined term
+\newcommand{\newterm}[1]{{\bf #1}}
+
+% Other
+\def\defeq{\dot=}
+\newcommand\norm[1]{\left\lVert#1\right\rVert} % Norm
+\newcommand{\red}{\textcolor{red}}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\DeclareMathOperator*{\hull}{hull}
+\DeclareMathOperator*{\argmax}{\arg\!\max}
+\newcommand{\xhdr}[1]{{\noindent\bfseries #1}.}
+\newcommand{\cut}[1]{}
+\newcommand{\CITE}{\textcolor{red}{CITE}}
+\newcommand{\joey}[1]{\textcolor{blue}{Joey: #1}}
+\newcommand{\removelatexerror}{\let\@latex@error\@gobble}
+% ---------------------------------------------------------
+
+
+
+% This is not strictly necessary, and may be commented out,
+% but it will improve the layout of the manuscript,
+% and will typically save some space.
+\usepackage{microtype}
+% \aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B\textsc{ib}\TeX}
+
+\title{Structure Aware Negative Sampling in Knowledge Graphs}
+
+\author{Kian Ahrabian\thanks{$\text{\;}$ Equal contribution}$^{\text{\; },1,3}$, Aarash Feizi\footnotemark[1]$^{\text{\; },1,3}$, Yasmin Salehi\footnotemark[1]$^{\text{\; },2}$, \\ {\bf William L. Hamilton$^{1,3}$} \and {\bf Avishak Joey Bose$^{1,3}$} \\ 
+$^1$ School of Computer Science, McGill University, Canada \\
+$^2$ Department of Electrical and Computer Engineering, McGill University, Canada \\
+$^3$ Montreal Institute of Learning Algorithms (Mila), Canada \\
+\{\texttt{kian.ahrabian}, \texttt{aarash.feizi}, \texttt{yasmin.salehi}, \texttt{wlh}, \texttt{joey.bose} \} \\
+\{\texttt{@mail.mcgill.ca}, \texttt{@mail.mcgill.ca}, \texttt{@mail.mcgill.ca}, \\ \texttt{@cs.mcgill.ca}, \texttt{@mail.mcgill.ca} \}
+}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+\input{writeup/abstract}
+\end{abstract}
+
+\input{writeup/Introduction}
+\input{writeup/Relatedwork}
+\input{writeup/Proposedapproach}
+\input{writeup/Experiments}
+\input{writeup/Conclusion}
+
+% \section*{Acknowledgments}
+
+% The acknowledgments should go immediately before the references. Do not number the acknowledgments section.
+% Do not include this section when submitting your paper for review.
+
+\clearpage
+
+\bibliography{anthology,emnlp2020}
+\bibliographystyle{acl_natbib}
+
+
+% -------------------------------------------------------
+\newpage
+
+\appendix
+
+\onecolumn
+
+% \input{writeup/Appendices}
+\newpage
+\input{writeup/Supplementary}
+ \end{document}

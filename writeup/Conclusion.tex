@@ -1,0 +1,12 @@
+\section{Conclusion and Future Directions}
+\label{sec:conclusion}
+
+In this work, we proposed two novel negative sampling approaches, namely Uniform SANS and Self-Adversarial SANS, which leverage information about local neighborhood structures, namely the \emph{k-hop} neighbourhood of a node, to select negative examples. According to our findings, the comparable performance of our negative sampling approach to the state-of-the-arts emphasized the importance of accounting for underlying graph structure while selecting negative examples. Respectfully, it would be worthwhile to extend the idea of structural negative sampling in various ways for efficient and effective training of graph embedding models. A potential improvement could be training graph embedding models with positive and negative context graphs \cite{navarin2018pre} in addition to positive and negative triplets.
+
+
+
+% As future directions, the idea of structural NEG can be taken further by training graph embedding models with positive and negative triplets as well as positive and negative context graphs \cite{navarin2018pre}. Lastly, one can extend the idea used in GAN-based NEG methods by finding the worst case negative triplet from a ball of radius $R$, and minimize the loss function with respect to it. The added benefit of using such \emph{robust} NEG scheme compared to the GAN-based ones is eliminating the need for a generator to create negative examples.  
+
+% We propose two techniques which take the idea of structural NEG further. As done in   \cite{navarin2018pre}, context graphs can be used to pre-train Graph Neural Networks (GNNs) at node level to improve transfer learning, by enabling prediction of the surrounding graph structure. Similarly, this idea can be implemented in structural NEG to train graph embedding models with positive and negative triplets as well as positive and negative context graphs. In this scheme, positive examples are sub-graphs that share the same center node, and negative examples are the ones with different nodes as their center node which may or may not lie within the \emph{k-hop} neighbourhood. Lastly, one can extend the idea used in GAN-based NEG methods by finding the worst case negative triplet from a ball of radius $R$, and minimize the loss function with respect to it. The added benefit of using such \emph{robust} NEG scheme compared to the GAN-based ones is eliminating the need for a generator to create negative examples.  
+
+

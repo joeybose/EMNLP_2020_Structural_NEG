@@ -1,0 +1,89 @@
+\section{Background}
+\label{sec:background}
+
+Negative sampling is an approach used to address the shortcomings of log-linear models, especially in the context of word and graph embeddings \cite{mikolov2013distributed}. The key idea is to avoid the expensive normalization constant in softmax prediction layers by training a model to distinguish between positive and negative examples, where the negative examples are sampled from some user-defined distribution. This general approach is a simplification of the noise contrastive estimation framework \cite{gutmann2010noise}, which is based on Monte-Carlo approximation used in Importance Sampling (IS) \cite{bengio2003quick}, where samples are taken from a distribution that is a mixture of training and noise distributions. 
+
+% Removed parts start
+%-----------------------------------------------------------------------------------------------
+\cut{ Negative Sampling (NEG) \cite{mikolov2013distributed} was among the various methods proposed to address the shortcomings of using log-linear models while training graph embedding models. To elaborate, early graph embedding models in the context of Natural Language Processing (NLP), referred to as word embedding models, deployed softmax function in their final layer to produce a probability distribution over words \cite{bengio2003quick}, which is prohibitively expensive because of the normalization term in its denominator. Therefore, the purpose of NEG is approximating softmax as opposed to explicitly computing it. }
+
+\cut{ Therefore, the purpose of NEG as well as other techniques devised for overcoming this limitation, such as hierarchical softmax \cite{morin2005hierarchical} and differential softmax \cite{chen2015strategies}, is approximating softmax as opposed to explicitly computing it.}
+
+\cut{
+In NEG, approximation of softmax is done by simplifying it into a binary classification task, where the conditional probability of encountering a node given another node is learned from a set of positive and negative examples. In particular, NEG is a simplification of Noise Contrastive Estimation (NCE) \cite{gutmann2010noise, mnih2012fast}, which is based on Monte Carlo approximation used in Importance Sampling (IS) \cite{bengio2003quick}, where samples are taken from a distribution that is a mixture of training and noise distributions. }
+
+% Removed parts end
+% -----------------------------------------------------------------------------------------------
+
+Formally, in this work we define negative triplets $(h',r,t')$ as:
+\begin{equation}
+    (h',r,t') = \{ (h',r,t)|h'\in E\} \cup \{(h,r,t')|t'\in E \}  \\
+\end{equation}
+where $E$ is the entity sample space. Additionally, we assume that the graph embedding models are using a loss function of the following form:
+\begin{align}
+    \Lb = &\sum_{(h,r,t) \in S} -\text{log }\sigma(\gamma - d(\boldsymbol{h},\boldsymbol{t}))  \notag \\ 
+    - &\sum_{i=1}^{n} \frac{1}{k}\text{log }\sigma(d(\boldsymbol{h}_i^{'},\boldsymbol{t}_i^{'})-\gamma)
+\end{align}
+where $d_r(h,t)$ denotes the decoder or distance function, $\gamma$
+is a fixed margin, $\sigma$ is the sigmoid function, and $(h_i^{'},r,t_i^{'})$ is the $i^{th}$ negative triplet.
+
+% ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\section{Related Work}
+\label{sec:relatedwork}
+As proposed in \cite{mikolov2013distributed}, negative triplets can be generated using a uniform sampling scheme. However, such uniform and fixed sampling scheme yields in choosing easily-classified negative triplets during training, which do not provide any meaningful information \cite{sun2019rotate, zhang2019nscaching}. Therefore, as the training goes on, most of the sampled negative triplets will have small scores and zero gradient, which impede training of the graph embedding model after only a small amount of optimization \cite{zhang2019nscaching, wang2018incorporating}. 
+
+To address the aforementioned issue, the authors in \cite{sun2019rotate} propose a dynamic and simple NEG approach called \emph{Self-Adversarial}, in which they sample the negative triplets from the following distribution: 
+\begin{equation}
+\label{eq:dist_adv}
+    p(h_j^{'},r,t_j^{'}|\{(h_i,r_i,t_i)\})=\frac{\text{exp }\eta f_r(\boldsymbol{h_j^{i}},\boldsymbol{t_j^{i}})}{\sum_{i}\text{exp }\eta f_r(\boldsymbol{h_j^{i}},\boldsymbol{t_j^{i}})}
+\end{equation}
+where $\eta$ is the temperature of the sampling, and $(h_i^{'},r,t_i^{'})$ is the $i^{th}$ negative triplet. Additionally, they assign this distribution as a weight to each negative triplet, resulting in the following loss function: 
+\begin{align}
+    \Lb = &\sum_{(h,r,t) \in S} -\text{log }\sigma(\gamma - d_r(\boldsymbol{h},\boldsymbol{t}))  \notag \\ 
+    - &\sum_{i=1}^{n}p(h_j^{'},r,t_j^{'})\text{log }\sigma(d_r(\boldsymbol{h}_i^{'},\boldsymbol{t}_i^{'})-\gamma)
+\end{align}
+
+
+Alternatively, the authors in \cite{wang2018incorporating} and \cite{cai2017kbgan} try creating high quality negative samples by exploiting \emph{Generative Adversarial Networks} (GANs) \cite{goodfellow2014generative}. Although effective, GAN-based sampling schemes are expensive to train
+and require a reinforcement learning step to enable backpropagation of errors \cite{zhang2019nscaching, cai2017kbgan}. 
+
+% ------------------------------------------------------
+% ------------------------------------------------------
+
+%%%%% Version 1 for GANs 
+%%%% this explanation was decided to be removed because it was long and unnecessary 
+% Start
+
+% Also, training GANs in a stable manner remains an open problem \cite{gulrajani2017improved}. 
+
+% GANs consist of a generator, which creates a ``true'' sample from noise, and a discriminator, which tries to distinguish the true sample from the false one that was outputted from the generator. Training GANs can be defined as a minimax game where the goal of the generator is minimizing the difference between positive and negative triplets, and the goal of the discriminator is maximizing the capability of distinguishing between them \cite{goodfellow2014generative}.
+
+% In mathematical terms, training a GAN is essentially a minimax game defined as:
+% \begin{align}
+% 	\operatorname*{\min}_{G}\operatorname*{\max}_{D} \operatorname*{\mathbb{E}}&_{\boldsymbol{x} \sim \mathbb{P}_{data}(x)}[\log D(\boldsymbol{x}))] \notag \\
+% 	+ \operatorname*{\mathbb{E}}&_{\boldsymbol{z} \sim \mathbb{P}_z (z)}[\log(1-D(G(\boldsymbol{z})))]
+% \end{align}
+% where the goal of the generator, $G$, is minimizing the difference between positive and negative triplets, and the goal of the discriminator, $D$, is maximizing the capability of distinguishing between them \cite{goodfellow2014generative}. In the equation above, $\mathbb{P}_{data} (x)$ and $\mathbb{P}_z (z) $ denote the real data and noise distributions respectively. \cite{goodfellow2014generative}. Although effective, GAN-based sampling schemes are expensive to train since not only the generator imposes additional parameters to the model, a  reinforcement learning step is also required to enable backpropagation of errors \cite{zhang2019nscaching}\cite{cai2017kbgan}. Moreover, training GANs in a stable manner remains an open problem \cite{gulrajani2017improved}. 
+
+% End 
+% ------------------------------------------------------
+
+
+%%%%% Version 2 for GANs 
+% Shortened version of explaining what are GANs
+% This was also removed
+
+% GANs consist of a generator, which creates a hard negative by minimizing the difference between positive and negative triplets' scores, and a discriminator, which is trained to maximize its capability to distinguish between positive and negative samples \cite{goodfellow2014generative}. 
+
+% ------------------------------------------------------
+
+
+To overcome the limitations of GAN-based NEG methods, the authors of \cite{zhang2019nscaching} propose a negative sampling approach based on a cache, named \emph{NSCaching}, using which a set of high-quality negative triplets (those with high scores) is maintained and negative triples are sampled from. In comparison to the GAN-based methods, NSCaching uses considerably less parameters and is easier to train. 
+
+% ace
+% Aside from the proposed techniques leveraging NEG, the authors in \cite{bose2018adversarial} extend the idea of NCE by transforming it into a mixture of standard NCE and a conditional distribution to learn the resulting objective function using a GAN-style minimax game. In this configuration, the embedding model and the conditional distribution are analogous to the discriminator and the generator in conditional GANs.
+
+% node embedding models is similar to word embedding models. word2vec and DeepWalk are methods that also use "structural properties". 
+
+
