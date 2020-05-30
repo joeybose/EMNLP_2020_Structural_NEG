@@ -1,13 +1,26 @@
-\section{Proposed Approach}
+\section{Structure Aware Negative Sampling}
 \label{sec:proposedapproach}
-In this paper, we seek to explicitly use the rich graph structure surrounding a particular node when generating negative triplets. We motivate our approach based on the observation that prior work in learning word embeddings \cite{mikolov2013distributed}, where negative sampling has historically developed, lacked the richness of graph structure that is immediately accessible in the KG setting. Consequently, we hypothesize that enriching the negative sampling process with structural information in KG can yield harder negative examples, crucial to learning of effective embeddings. The preliminary step for implementing this idea is building the k-hop neighbourhood ($K$) of each node, which can be computed using the formula below: 
+In this paper, we seek to explicitly use the rich graph structure surrounding a particular node when generating negative triplets. We motivate our approach based on the observation that prior work in learning word embeddings \cite{mikolov2013distributed}, where negative sampling has historically developed, lacked the richness of graph structure that is immediately accessible in the KG setting. Consequently, we hypothesize that enriching the negative sampling process with structural information in KG can yield harder negative examples, crucial to learning of effective embeddings. Figure \ref{fig:arch} highlights our approach and in the first step requires the construction of a $k$-hop neighbourhood ($K$) for each node, which can be computed as follows: 
 \begin{equation}
 \label{eqn:khop}
-K = A^{k} + A^{k-1}
+\mathbb{K} = A^{k} + A^{k-1}
 \end{equation}
-for $k>0$, where $k$ is an arbitrary number, representing the desired neighbourhood radius to be considered during sampling for a given centre node, and $A$ stands for \emph{adjacency matrix}. 
+for $k>0$, where $k$ is an integer, representing the desired neighbourhood radius and $A$ is the adjacency matrix for the KG.
 
-\cut{ However, since computing Eq. \ref{eqn:khop} can be costly for large KG's due to matrix multiplication, the \emph{k-hop} neighbourhood can be approximated using \emph{Random Walks (RW)} \cite{perozzi2014deepwalk} by Algorithm \ref{alg:rw}, where $\omega$ is the number of RWs, and $k$ is the number of k-hops.
+To construct negatives triplets, we may now simply sample from the $\mathbb{K}$, which represents a subset of all entities in the KG ---i.e. $\mathbb{K} \subset E$. Thus, selected negative triples satisfy the following criterion:
+\begin{equation*}
+    (h',r,t') = \{ (h',r,t)|h'\in \mathbb{K}\} \cup \{(h,r,t')|t'\in \mathbb{K} \}  \\
+\end{equation*}
+\cut{
+with $ \mathbb{K} \subset E$, where $K$ is the \emph{k-hop} neighbourhood of $h$ or $t$, and $E$ is the entire sample space.} Intuitively, SANS exploits the locality of an entity's neighborhood, where negative samples are defined to be head or tail entities that are not directly linked under a relation $r$ but can be accessed through a path of at most length $k$.We argue that such local negatives are harder to distinguish and lead to higher scores as evaluated by the embedding model. One important technical detail in constructing $\mathbb{K}$ is the existence of multiple relation types, which requires an additional dimension to represent the graph connectivity and local neighborhoods as adjacency and \emph{k-hop} tensors.
+
+\subsection{Variants of SANS}
+Although, SANS requires a one time preprocessing step in order to construct $\mathbb{K}$ as defined in Eqn \ref{eqn:khop}, this may still be costly for large and dense KGs. To combat this inefficiency we introduce Random Walk SANS, which uses random walks of length $k$ on the adjacency tensor \cite{perozzi2014deepwalk} to approximate the \emph{k-hop} neighbourhood within the KG. Thus the number of random walks trades of the computational cost with approximation accuracy of the true $\mathbb{K}$.
+
+As SANS constructs a local neighborhood from which negative samples are drawn, it can also be combined with other negative sampling approaches. In this work, we extend the Self-Adversarial approach in \cite{sun2019rotate} and combine it with SANS by restricting the negative triplet candidate set to the \emph{k-hop} neighbourhood. In the subsequent sections, we refer to this technique as \emph{Self-Adversarial SANS}, whereas the former approach is referred to as \emph{Uniform SANS}. 
+
+\cut{
+Computing Eq. \ref{eqn:khop} can be costly for large KGs, the \emph{k-hop} neighbourhood can be approximated using \emph{Random Walks (RW)} \cite{perozzi2014deepwalk} by Algorithm \ref{alg:rw}, where $\omega$ is the number of RWs, and $k$ is the number of k-hops.
 
 \begin{algorithm}[tb]
    \caption{\small Approximating K-hop neighbourhood using RWs}
@@ -23,15 +36,5 @@ for $k>0$, where $k$ is an arbitrary number, representing the desired neighbourh
    \STATE {\textbf{return}} $K$
 \end{algorithmic}
 \end{small}
-\end{algorithm}
-}
-Consequently, given a value for $k$, the \emph{k-hop} neighbourhood of an entity (node) within the graph is calculated, and the negative triples are made by selecting the head $h$ or tail $t$ entity from the \emph{k-hop} neighbourhood that satisfy this criterion:
-\begin{equation}
-    (h',r,t') = \{ (h',r,t)|h'\in K\} \cup \{(h,r,t')|t'\in K \}  \\
-\end{equation}
-with $ K \subset E$, where $K$ is the \emph{k-hop} neighbourhood of $h$ or $t$, and $E$ is the entire sample space. It should be noted that since different relation types are considered in our sampling scheme, an additional dimension is added to the adjacency (A) and \emph{k-hop} (K) matrices, resulting in adjacency and \emph{k-hop} tensors.
-
-\subsection{Variants of SANS}
-
-We can also extend the self-adversarial approach in \cite{sun2019rotate} using the SANS approach by restricting the negative triplet distribution in Eq.\ref{eq:dist_adv} to the \emph{k-hop} neighbourhood. In the subsequent sections, we refer to this technique as \emph{Self-Adversarial SANS}, whereas the former approach is referred to as \emph{Uniform SANS}. 
+\end{algorithm}}
 

@@ -1,0 +1,32 @@
+% RESULTS TABLE 2 START
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{3}{1.5cm}{\centering TransE} & Self-Adv. \cite{sun2019rotate} & \textbf{52.73} & \textbf{0.3296} & \textbf{92.02} & \textbf{0.7722} & 52.78 & 0.2232 \\
+& Self-Adv. SANS (ours) & 52.03 & 0.3265 & 84.06 & 0.7136 & \textbf{53.21} & \textbf{0.2249} \\
+& $\Delta$ & \cellcolor{mistyrose}-0.7 & \cellcolor{mistyrose}-0.0031 & \cellcolor{mistyrose}-7.96 &	\cellcolor{mistyrose} -0.0586 & \cellcolor{palegreen}+0.43 & \cellcolor{palegreen}+0.0017 \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{3}{1.5cm}{\centering DistMult} & Self-Adv. & 48.41 & 0.3091 & 92.94  & 0.6837 & \textbf{53.80} & \textbf{0.4399} \\
+& Self-Adv. SANS (ours) & \textbf{48.68} & \textbf{0.3100} & \textbf{93.04} & \textbf{0.7561} & 38.70 & 0.3684 \\
+& $\Delta$ & \cellcolor{palegreen}+0.27 & \cellcolor{palegreen} +0.0009 & \cellcolor{palegreen}+0.1 &	\cellcolor{palegreen}+0.0724 & \cellcolor{mistyrose} -15.10 & \cellcolor{mistyrose}-0.0715 \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{3}{1cm}{\centering RotatE} & Self-Adv. & 53.03 & \textbf{0.3362} & \textbf{96.05}& \textbf{0.9498} & \textbf{57.29} & \textbf{0.4760} \\
+& Self-Adv. SANS (ours) & \textbf{53.12} & 0.3358 & 95.85 & 0.9494 & 57.12 & 0.4745 \\
+& $\Delta$ & \cellcolor{palegreen}+0.09 & \cellcolor{mistyrose}-0.0004 &  \cellcolor{mistyrose}-0.2 & \cellcolor{mistyrose}-0.0004	& \cellcolor{mistyrose}-0.17	& \cellcolor{mistyrose}-0.0015 \\
+\hline
+\end{tabular}
+\caption{Comparison of the Self-Adversarial negative sampling technique with our Self-Adversarial SANS. 
+}
+\label{tab:comp_adv}
+\end{small}
+\end{table*}
+% RESULTS TABLE 2 END

@@ -1,14 +1,166 @@
 \section{Supplemental Material}
 \label{sec:supplemental}
 
+\subsection{Implementation Details}
+
+Since computing Eq. \ref{eqn:khop} can be costly for large KG's, the \emph{k-hop} neighbourhood can be approximated using \emph{Random Walks (RW)} \cite{perozzi2014deepwalk} by Algorithm \ref{alg:rw}, where $\omega$ is the number of RWs, and $k$ is the number of k-hops.
+
+\begin{algorithm}[h]
+    \caption{Approximating K-hop neighbourhood using RWs}
+    \begin{algorithmic}
+    \STATE {\bfseries Input:} $A, k, \omega$
+    \COMMENT A: Adjacency Matrix, k: \# of k-hops, $\omega$: \# of RWs
+    \STATE {$K \gets$ sparseMatrix($|A| \times |A|$)}
+    \FORALL {entity $e$}
+    \STATE {$K[e] \gets $} randomWalk(k, $\omega$)
+    \ENDFOR
+    \STATE {\textbf{return}} $K$
+    \end{algorithmic}
+\label{alg:rw}
+\end{algorithm}
+
+\subsection{Hyperparameters}
+
+Aside from $k$ being one the most important hyperparameters in our negative sampling scheme, the number of random walks, denoted as $\omega$, is another hyperparameter determining the performance of our negative sampling methods when Algorithm \ref{alg:rw} is being deployed for approximating the $k-hop$ neighbourhood.
+
+Lastly, the hyperparameters used to train different graph embedding models can be found in Table \ref{tab:param}, which yield their best performance on validation sets.
+
+% ------------------------------------------------------------------------
+\begin{table}[h]
+\centering
+\begin{tabular}{cccc}
+\hline
+Hyperparameter          &    TransE & DistMult & RotatE \\ \hline
+Embedding Dimension     &      1024    &  1024  & 1024   \\ 
+Batch Size              &      1000     &  2000 &  1000  \\ 
+$\gamma$                &      9        &     200     &  9  \\  
+Optimizer               &      Adam    &  Adam      & Adam   \\ 
+$\alpha$                &      0.00005 &   0.001    & 0.00005  \\  
+\hline
+\end{tabular}
+\caption{Graph embedding models hyperparameters}
+\label{tab:param}
+\end{table}
+% ------------------------------------------------------------------------
+
+\subsection{Complete Results for Different Hyperparameter Settings} 
+ 
+The following results have been achieved by approximating the k-hop adjacency tensor after implementing Algorithm \ref{alg:rw}. 
+
+
+% RESULTS TABLE 3 START
+
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{4}{1.5cm}{\centering TransE} & Uniform \cite{sun2019rotate} & 48.03 & 0.2927 & \textbf{95.53} & 0.6085 & 49.63 & 0.2022 \\
+& KBGAN \cite{cai2017kbgan} & 46.59 & 0.2926 & 94.80 & 0.6606 & 45.39 & 0.1808 \\
+& NSCaching \cite{zhang2019nscaching} & 47.64 & 0.2993 & 94.63 & 0.7818 & 47.83 & 0.2002 \\
+& Uniform SANS (ours) &  &  &  &  &  &  \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{4}{1.5cm}{\centering DistMult} & Uniform & 40.26 & 0.2537 & 81.39  & 0.4689 & 52.86 & 0.3938 \\
+& KBGAN & 39.91 & 0.2272 & 93.08 & 0.7275 & 44.32 & 0.3849 \\
+& NSCaching & 45.56 & 0.2834 & \textbf{93.74} & \textbf{0.8306} & 45.80 & 0.4148 \\
+& Uniform SANS (ours)  &  &  &  &  &  &  \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{2}{1cm}{\centering RotatE} & Uniform & 47.85 & 0.2946 & \textbf{96.09} & 0.9474 & 56.51 & 0.4711 \\
+& Uniform SANS (ours) &  &  &  &  &  &  \\
+\hline
+\end{tabular}
+\caption{Comparison of different negative sampling algorithms. Results for KBGAN and NSCaching are taken from \cite{zhang2019nscaching}. IGAN results are taken from \cite{wang2018incorporating}. 
+All other results were are taken from our re-implementations. In this table, the results of our negative sampling schemes been achieved after approximating the k-hop neighbourhood with random walks.}
+\label{tab:comparison3}
+\end{small}
+\end{table*}
+
+% RESULTS TABLE 3 END
+% ------------------------------------------------------------------------
+
+% ------------------------------------------------------------------------
+% RESULTS TABLE 4 START
+
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{2}{1.5cm}{\centering TransE} & Self-Adv. \cite{sun2019rotate} & \textbf{52.73} & \textbf{0.3296} & 92.02 & 0.7722 & 52.78 & 0.2232 \\
+& Self-Adv. SANS (ours) &  &  &  &  &  & \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{2}{1.5cm}{\centering DistMult} & Self-Adv. & 48.41 & 0.3091 & 92.94  & 0.6837 & \textbf{53.80} & \textbf{0.4399} \\
+& Self-Adv. SANS (ours) &  &  &  &  &  &  \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{2}{1cm}{\centering RotatE} & Self-Adv. & 53.03 & \textbf{0.3362} & 96.05& 0.9498 & \textbf{57.29} & 0.4760 \\
+& Self-Adv. SANS (ours) &  &  &  &  &  &  \\
+\hline
+\end{tabular}
+\caption{Comparison of the Self-Adversarial negative sampling technique with our Self-Adversarial SANS, in which the \emph{k-hop} neighbourhood was approximated by Algorithm \ref{alg:rw}. 
+}
+\label{tab:comparison4}
+\end{small}
+\end{table*}
+
+% RESULTS TABLE 4 END
+% ------------------------------------------------------------------------
+
+\cut{
+%%%%%% PLOTS START
+\input{writeup/Plots}
+%%%%%% PLOTS END
+}
+
+\subsection{Percentage of the Filled Entries in the Adjacency Tensor}
+
+% % % ------------------------------------------------------------------------
+% TABLE 4 START
+% % of filled entries
+\begin{table}[b]
+\begin{small}
+\centering
+\begin{tabular}{cccccc}
+\hline
+$k$ & 2 & 3 & 4 & 5 \\ 
+\hline
+FB15K-237 & 34 & 83 & 97 & 99 \\
+\hline
+WN18 & 0.19 & 0.75 & 3.22 & 10.2 \\
+\hline
+WN18RR & 0.16 & 0.65 & 2.76 & 8.67 \\
+\hline
+\end{tabular}
+\caption{Percentage (\%) of filled entries in the \emph{k-hop} adjacency tensor.}
+\label{tab:percentage}
+\end{small}
+\end{table}
+% TABLE 4 END
+% % % ------------------------------------------------------------------------
+
+
+\subsection{Comparison of Time and Space Complexities of Different Negative Sampling Approaches}
+
 % % ------------------------------------------------------------------------
 % COMPLEXITY TABLE START
-
 \begin{table}[!htbp]
     \centering
     \begin{tabular}{cccc}
     \hline
-         \multirow{2}{3cm}{\centering NEG Algorithm} & Preprocessing  & Runtime  & Space \\
+         \multirow{2}{3cm}{\centering Negative Sampling Algorithm} & Preprocessing  & Runtime  & Space \\
          & Complexity & Complexity & Complexity
          \\
          \hline
@@ -26,6 +178,5 @@
     \caption{Comparison of different negative sampling algorithms in terms of preprocessing, runtime, and space complexities given batch size $b$, negative sample size $n$, cache size $c$, cache extension size $e$, node set $V$, edge set $E$, relation set $R$, embedding dimension $d$, hops count $k$, random walks count $r$, and GAN parameters count $t$.}
     \label{tab:times}
 \end{table}
-
 % COMPLEXITY TABLE END
 % % ------------------------------------------------------------------------

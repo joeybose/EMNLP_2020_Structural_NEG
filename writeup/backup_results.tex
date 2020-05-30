@@ -1,0 +1,47 @@
+% ------------------------------------------------------------------------
+% MAIN RESULTS TABLE START
+
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{5}{1.5cm}{\centering TransE} & Uniform \cite{sun2019rotate} & 48.03 & 0.2927 & \textbf{95.53} & 0.6085 & 49.63 & 0.2022 \\
+& KBGAN \cite{cai2017kbgan} & 46.59 & 0.2926 & 94.80 & 0.6606 & 45.39 & 0.1808 \\
+% & IGAN \cite{wang2018incorporating} & - & - & 92.7 & - & - & -\\
+& NSCaching \cite{zhang2019nscaching} & 47.64 & 0.2993 & 94.63 & 0.7818$^\dagger$ & 47.83 & 0.2002\\
+& Self-Adv. \cite{sun2019rotate} & \textbf{52.73} & \textbf{0.3296} & 92.02 & 0.7722 & 52.78$^\dagger$ & 0.2232 \\
+% & Uniform SANS (ours) & 48.37 & 0.2971 & 95.22$^\dagger$ & \textbf{0.8195} \\
+& Uniform SANS (ours) & 48.35 & 0.2962 & 95.09$^\dagger$ & \textbf{0.8228} & 51.15 & \textbf{0.2254} \\
+% & Self-Adv. SANS (ours) & 50.04$^\dagger$ & 0.3060$^\dagger$ & 88.51 & 0.7429 \\
+& Self-Adv. SANS (ours) & 52.03$^\dagger$ & 0.3265$^\dagger$ & 84.06 & 0.7136 & \textbf{53.21} & 0.2249$^\dagger$ \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{4}{1.5cm}{\centering DistMult} & Uniform & 40.26 & 0.2537 & 81.39  & 0.4689 & 52.86$^\dagger$ & 0.3938 \\
+& KBGAN & 39.91 & 0.2272 & 93.08 & 0.7275 & 44.32 & 0.3849 \\
+& NSCaching & 45.56 & 0.2834 & \textbf{93.74} & \textbf{0.8306} & 45.80 & 0.4148$^\dagger$ \\
+& Self-Adv. & 48.41$^\dagger$ & 0.3091$^\dagger$ & 92.94  & 0.6837 & \textbf{53.80} & \textbf{0.4399} \\
+& Uniform SANS (ours) & 41.00 & 0.2595 & 93.19$^\dagger$ & 0.7553 & 44.29 & 0.3907 \\
+& Self-Adv. SANS (ours) & \textbf{48.68} & \textbf{0.3100} & 93.04 & 0.7561$^\dagger$ & 38.27 & 0.3529 \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{3}{1cm}{\centering RotatE} & Uniform & 47.85 & 0.2946 & \textbf{96.09} & 0.9474 & 56.51 & 0.4711 \\
+& Self-Adv. & 53.03$^\dagger$ & \textbf{0.3362} & 96.05$^\dagger$ & 0.9498$^\dagger$ & \textbf{57.29} & 0.4760$^\dagger$ \\
+& Uniform SANS (ours) & 48.22 & 0.2985 & 95.97 & \textbf{0.9499} & 55.76 & \textbf{0.4769} \\
+& Self-Adv. SANS (ours) & \textbf{53.12} & 0.3358$^\dagger$ & 95.85 & 0.9494 & 57.12$^\dagger$ & 0.4745 \\
+\hline
+\end{tabular}
+\caption{Comparison of different negative sampling algorithms. Results for KBGAN and NSCaching are taken from \cite{zhang2019nscaching}. IGAN results are taken from \cite{wang2018incorporating}. 
+All other results were are taken from our re-implementations. Bold numbers are the best performance, whereas those marked by $\dagger$ are the second-best. 
+}
+\label{tab:comparison1}
+\end{small}
+\end{table*}
+
+% MAIN RESULTS TABLE END
+% ------------------------------------------------------------------------

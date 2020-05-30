@@ -1,0 +1,72 @@
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{5}{1.5cm}{\centering TransE} & KBGAN \cite{cai2017kbgan} & 46.59 & 0.2926 & 94.80 & 0.6606 & 45.39 & 0.1808 \\
+& NSCaching \cite{zhang2019nscaching} & 47.64 & \textbf{0.2993} & 94.63 & 0.7818$^\dagger$ & 47.83 & 0.2002\\
+& Uniform \cite{sun2019rotate} & 48.03$^\dagger$ & 0.2927 & \textbf{95.53} & 0.6085 & 49.63$^\dagger$ & 0.2022$^\dagger$ \\
+& Uniform SANS (ours) & \textbf{48.35} & 0.2962$^\dagger$ & 95.09$^\dagger$ & \textbf{0.8228} & \textbf{51.15} & \textbf{0.2254} \\
+& $\Delta$ & \cellcolor{celadon}+0.32 & \cellcolor{mistyrose}-0.0031 & \cellcolor{mistyrose}-0.44 &	\cellcolor{celadon}+0.041 & \cellcolor{celadon}+1.52	& \cellcolor{celadon}+0.0232 \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{5}{1.5cm}{\centering DistMult} & KBGAN & 39.91 & 0.2272 & 93.08 & 0.7275 & 44.32 & 0.3849 \\
+& NSCaching & \textbf{45.56} & \textbf{0.2834} & \textbf{93.74} & \textbf{0.8306} & 45.80$^\dagger$ & \textbf{0.4148} \\
+& Uniform & 40.26 & 0.2537 & 81.39  & 0.4689 & \textbf{52.86} & 0.3938$^\dagger$ \\
+& Uniform SANS (ours) & 41.00$^\dagger$ & 0.2595$^\dagger$ & 93.19$^\dagger$ & 0.7553$^\dagger$ & 44.74 & 0.4025 \\
+& $\Delta$ & \cellcolor{mistyrose}-4.56 & \cellcolor{mistyrose}-0.0239 & \cellcolor{mistyrose}-0.55 & \cellcolor{mistyrose}-0.0753 &	\cellcolor{mistyrose}-8.12 & \cellcolor{mistyrose}-0.0123 \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{3}{1cm}{\centering RotatE} & Uniform & 47.85$^\dagger$ & 0.2946$^\dagger$ & \textbf{96.09} & 0.9474$^\dagger$ & \textbf{56.51} & 0.4711$^\dagger$ \\
+& Uniform SANS (ours) & \textbf{48.22 }& \textbf{0.2985} & 95.97$^\dagger$ & \textbf{0.9499} & 55.76$^\dagger$ & \textbf{0.4769} \\
+& $\Delta$ & \cellcolor{celadon}+0.37 & \cellcolor{celadon}+0.0039 & \cellcolor{mistyrose}-0.12 & \cellcolor{celadon}+0.0025 & \cellcolor{mistyrose}-0.75 & \cellcolor{celadon}+0.0058\\
+\hline
+\end{tabular}
+\caption{Comparison of different negative sampling algorithms. Bold and $\dagger$ numbers represent best and second-best performance respectively. Results for KBGAN and NSCaching are taken from \cite{zhang2019nscaching}.
+}
+\label{tab:unisota_comp}
+\end{small}
+\end{table*}
+% ------------------------------------------------------------
+% ------------------------------------------------------------% ------------------------------------------------------------
+% ---- BACKUP
+\cut{
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{5}{1.5cm}{\centering TransE} & KBGAN \cite{cai2017kbgan} & 46.59 & 0.2926 & 94.80 & 0.6606 & 45.39 & 0.1808 \\
+& NSCaching \cite{zhang2019nscaching} & 47.64 & \textbf{0.2993} & 94.63 & 0.7818$^\dagger$ & 47.83 & 0.2002\\
+& Uniform \cite{sun2019rotate} & 48.03$^\dagger$ & 0.2927 & \textbf{95.53} & 0.6085 & 49.63$^\dagger$ & 0.2022$^\dagger$ \\
+& Uniform SANS (ours) & \textbf{48.35} & 0.2962$^\dagger$ & 95.09$^\dagger$ & \textbf{0.8228} & \textbf{51.15} & \textbf{0.2254} \\
+& $\Delta$ & \cellcolor{palegreen}+0.32 & \cellcolor{palegreen}+0.0035 & \cellcolor{mistyrose}-0.44 &	\cellcolor{palegreen}+0.2143 & \cellcolor{palegreen}+1.52	& \cellcolor{palegreen}+0.0232 \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{5}{1.5cm}{\centering DistMult} & KBGAN & 39.91 & 0.2272 & 93.08 & 0.7275 & 44.32 & 0.3849 \\
+& NSCaching & \textbf{45.56} & \textbf{0.2834} & \textbf{93.74} & \textbf{0.8306} & 45.80$^\dagger$ & \textbf{0.4148} \\
+& Uniform & 40.26 & 0.2537 & 81.39  & 0.4689 & \textbf{52.86} & 0.3938$^\dagger$ \\
+& Uniform SANS (ours) & 41.00$^\dagger$ & 0.2595$^\dagger$ & 93.19$^\dagger$ & 0.7553$^\dagger$ & 44.74 & 0.4025 \\
+& $\Delta$ & \cellcolor{palegreen}+0.7400 & \cellcolor{palegreen}+0.0058 & \cellcolor{palegreen}+11.80 & \cellcolor{palegreen}+0.2864 &	\cellcolor{mistyrose}-8.12 & \cellcolor{palegreen}+0.0087 \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{3}{1cm}{\centering RotatE} & Uniform & 47.85$^\dagger$ & 0.2946$^\dagger$ & \textbf{96.09} & 0.9474$^\dagger$ & \textbf{56.51} & 0.4711$^\dagger$ \\
+& Uniform SANS (ours) & \textbf{48.22 }& \textbf{0.2985} & 95.97$^\dagger$ & \textbf{0.9499} & 55.76$^\dagger$ & \textbf{0.4769} \\
+& $\Delta$ & \cellcolor{palegreen}+0.37 & \cellcolor{palegreen}+0.0039 & \cellcolor{mistyrose}-0.12 & \cellcolor{palegreen}+0.0025 & \cellcolor{mistyrose}-0.75 & \cellcolor{palegreen}+0.0058\\
+\hline
+\end{tabular}
+\caption{Comparison of different negative sampling algorithms. Bold and $\dagger$ numbers represent best and second-best performance respectively. Results for KBGAN and NSCaching are taken from \cite{zhang2019nscaching}.
+}
+\label{tab:unisota_comp}
+\end{small}
+\end{table*}}

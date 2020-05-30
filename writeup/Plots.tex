@@ -1,0 +1,17 @@
+\begin{figure}[!htbp]
+    \centering % <-- added
+\begin{subfigure}{0.33\textwidth}
+  \includegraphics[width=\linewidth]{writeup/Results/FB15237/TransE/UniH@10.png}
+  \captionsetup{justification=centering}
+  \caption{H@10 vs. the size of the k-hop neighbourhood}
+  \label{fig:FB15237_TransE_UniH@10}
+\end{subfigure}\hfil % <-- added
+\begin{subfigure}{0.33\textwidth}
+  \includegraphics[width=\linewidth]{writeup/Results/FB15237/TransE/UniMRR.png}
+  \captionsetup{justification=centering}
+  \caption{MRR vs. the size of the k-hop neighbourhood}
+  \label{fig:FB15237_TransE_H@3TURW}
+\end{subfigure}\hfil % <-- added
+\caption{The performance of the trained TransE model combined with our Uniform SANS algorithm on the FB15K-237 dataset. During these experiments, the negative triplets were sampled using the \emph{k-hop} adjacency tensor that was computed by \ref{eqn:khop}.}
+\label{fig:FB15237_TransE_Uni}
+\end{figure} 

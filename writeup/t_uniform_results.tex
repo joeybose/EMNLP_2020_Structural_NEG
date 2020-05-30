@@ -1,0 +1,29 @@
+% RESULTS TABLE 1 START
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{2}{1.5cm}{\centering TransE} & Uniform \cite{sun2019rotate} & 48.03 & 0.2927 & \textbf{95.53} & 0.6085 & 49.63 & 0.2022 \\
+&Uniform SANS (ours) & \textbf{48.35} & \textbf{0.2962} & 95.09 & \textbf{0.8228} & \textbf{51.15 }& \textbf{0.2254} \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{2}{1.5cm}{\centering DistMult} & Uniform & 40.26 & 0.2537 & 81.39  & 0.4689 & \textbf{52.86} & \textbf{0.3938} \\
+& Uniform SANS (ours) & \textbf{41.00} & \textbf{0.2595} & \textbf{93.19} & \textbf{0.7553} & 44.29 & 0.3907 \\
+\hline
+% RotatE --------------------------------------------------
+\multirow{2}{1cm}{\centering RotatE} & Uniform & 47.85 & 0.2946 & \textbf{96.09} & 0.9474 & \textbf{56.51} & 0.4711 \\
+& Uniform SANS (ours) & \textbf{48.22} & \textbf{0.2985} & 95.97 & \textbf{0.9499} & 55.76 & \textbf{0.4769} \\
+\hline
+\end{tabular}
+\caption{Comparison of uniform negative sampling technique with our uniform SANS. 
+}
+\label{tab:comp_uni}
+\end{small}
+\end{table*}
+% RESULTS TABLE 1 END

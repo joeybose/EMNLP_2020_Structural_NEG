@@ -1,0 +1,28 @@
+% RESULTS TABLE 3 START
+\begin{table*}[h]
+\begin{small}
+\centering
+\begin{tabular}{cccccccc}
+\hline
+\multirow{3}{2cm}{\centering Score Function}& \multirow{3}{2cm}{Algorithm} & \multicolumn{2}{c}{FB15K-237} & \multicolumn{2}{c}{WN18} & \multicolumn{2}{c}{WN18RR} \\
+& & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} & Hit@10 & \multirow{2}{1cm}{\centering MRR} \\ 
+& & (\%) & & (\%) & & (\%) & \\
+\hline
+% TransE --------------------------------------------------
+\multirow{3}{1.5cm}{\centering TransE} & KBGAN \cite{cai2017kbgan} & 46.59 & 0.2926 & 94.80$^\dagger$ & 0.6606 & 45.39 & 0.1808 \\
+& NSCaching \cite{zhang2019nscaching} & 47.64 & \textbf{0.2993} & 94.63 & 0.7818$^\dagger$ & 47.83$^\dagger$ & 0.2002$^\dagger$ \\
+&Uniform SANS (ours) & \textbf{48.35} & 0.2962$^\dagger$ & \textbf{95.09} & \textbf{0.8228} & \textbf{51.15} & \textbf{0.2254} \\
+\hline
+% DistMult --------------------------------------------------
+\multirow{3}{1.5cm}{\centering DistMult} & KBGAN & 39.91 & 0.2272 & 93.08 & 0.7275 & 44.32$^\dagger$ & 0.3849 \\
+& NSCaching & \textbf{45.56} & \textbf{0.2834} & \textbf{93.74} & \textbf{0.8306} & \textbf{45.80} & \textbf{0.4148} \\
+& Uniform SANS (ours) & 41.00$^\dagger$ & 0.2595$^\dagger$ & 93.19$^\dagger$ & 0.7553$^\dagger$ & 44.29 & 0.3907$^\dagger$ \\
+\hline
+\end{tabular}
+\caption{Comparison of different negative sampling algorithms.\cut{Results for KBGAN and NSCaching are the \emph{scratch} results taken from \cite{zhang2019nscaching}.}
+Bold and $\dagger$ numbers represent best and second-best performance respectively.
+}
+\label{tab:comp_sota}
+\end{small}
+\end{table*}
+% RESULTS TABLE 3 END
